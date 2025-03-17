@@ -1,24 +1,14 @@
-# Java Programming Assignment
+# Java Assignment
 
-## 1. Check if the Given Number is EVEN or ODD
+## 1. Check if a Number is Even or Odd
 
-### **Program Code**
+### **Logic Method**
 ```java
-import java.util.Scanner;
-
-public class EvenOddCheck {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Enter a number: ");
-        int num = sc.nextInt();
-        
-        if ((num & 1) == 0) {
-            System.out.println(num + " is Even.");
-        } else {
-            System.out.println(num + " is Odd.");
-        }
-        
-        sc.close();
+public static boolean isEven(int num) {
+    if (num % 2 == 0) {
+        return true;
+    } else {
+        return false;
     }
 }
 ```
@@ -36,7 +26,7 @@ public class EvenOddCheck {
                   |
                   v
          +-----------------+
-         | num & 1 == 0?   |
+         | num % 2 == 0?   |
          +-----------------+
          /       \
        Yes       No
@@ -50,36 +40,22 @@ public class EvenOddCheck {
         +----------------+
 ```
 
-### **Logic Explanation**
-- The bitwise AND (`&`) operation with `1` checks if the least significant bit is `0` (even) or `1` (odd).
-- This method is more efficient than using modulus (`%`), as bitwise operations are faster.
-
 ### **Time and Space Complexity**
-- **Time Complexity:** `O(1)` (Constant time operation)
-- **Space Complexity:** `O(1)` (Uses a single integer variable)
+- **Time Complexity:** \( O(1) \) – Only a single operation is performed.
+- **Space Complexity:** \( O(1) \) – Uses a constant amount of extra space.
 
 ---
 
 ## 2. Find the Factorial of a Given Number
 
-### **Program Code**
+### **Logic Method**
 ```java
-import java.util.Scanner;
-
-public class Factorial {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Enter a number: ");
-        int num = sc.nextInt();
-        long fact = 1;
-
-        for (int i = 1; i <= num; i++) {
-            fact *= i;
-        }
-
-        System.out.println("Factorial of " + num + " is " + fact);
-        sc.close();
+public static int factorial(int num) {
+    int fact = 1;
+    for (int i = 1; i <= num; i++) {
+        fact *= i;
     }
+    return fact;
 }
 ```
 
@@ -96,18 +72,22 @@ public class Factorial {
                   |
                   v
          +-----------------+
-         | Initialize fact=1|
+         | fact = 1        |
          +-----------------+
                   |
                   v
          +-----------------+
-         | Loop from 1 to n |
-         | fact *= i        |
+         | i = 1 to num    |
          +-----------------+
                   |
                   v
          +-----------------+
-         | Print factorial |
+         | fact *= i       |
+         +-----------------+
+                  |
+                  v
+         +-----------------+
+         | Print fact      |
          +-----------------+
                   |
                   v
@@ -116,36 +96,21 @@ public class Factorial {
          +-----------------+
 ```
 
-### **Logic Explanation**
-- We initialize `fact = 1` and multiply it successively by numbers from `1` to `n`.
-- This iterative approach ensures we get the correct factorial.
-
 ### **Time and Space Complexity**
-- **Time Complexity:** `O(n)` (Iterates `n` times)
-- **Space Complexity:** `O(1)` (Uses a constant number of variables)
+- **Time Complexity:** \( O(n) \) – Iterates through all numbers from 1 to n.
+- **Space Complexity:** \( O(1) \) – Uses a single integer variable.
 
 ---
 
-## 3. Find the Factorial of a Number using Recursion
+## 3. Find the Factorial of a Number Using Recursion
 
-### **Program Code**
+### **Logic Method**
 ```java
-import java.util.Scanner;
-
-public class FactorialRecursion {
-    static long factorial(int n) {
-        if (n == 0 || n == 1)
-            return 1;
-        return n * factorial(n - 1);
+public static int factorialRecursive(int num) {
+    if (num == 0 || num == 1) {
+        return 1;
     }
-
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Enter a number: ");
-        int num = sc.nextInt();
-        System.out.println("Factorial of " + num + " is " + factorial(num));
-        sc.close();
-    }
+    return num * factorialRecursive(num - 1);
 }
 ```
 
@@ -162,23 +127,72 @@ public class FactorialRecursion {
                   |
                   v
          +-----------------+
-         | Call factorial()|
+         | num == 0 or 1?  |
+         +-----------------+
+         /       \
+       Yes       No
+       /          \
++-------------+  +--------------------+
+| Return 1    |  | num * factorial(n-1)|
++-------------+  +--------------------+
+                           |
+                           v
+                   +-----------------+
+                   | Print result    |
+                   +-----------------+
+                           |
+                           v
+                   +-----------------+
+                   | End             |
+                   +-----------------+
+```
+
+### **Time and Space Complexity**
+- **Time Complexity:** \( O(n) \) – Recursively calls itself until base case.
+- **Space Complexity:** \( O(n) \) – Uses stack memory for recursive calls.
+
+---
+
+## 4. Swap Two Numbers Without Using a Third Variable (Approach 1: Using Addition and Subtraction)
+
+### **Logic Method**
+```java
+public static void swapUsingAddition(int a, int b) {
+    a = a + b;
+    b = a - b;
+    a = a - b;
+}
+```
+
+### **Flowchart**
+```
+         +-----------------+
+         | Start           |
          +-----------------+
                   |
                   v
          +-----------------+
-         | if n <= 1       |
-         | return 1        |
+         | Read a, b       |
          +-----------------+
                   |
                   v
          +-----------------+
-         | return n * f(n-1) |
+         | a = a + b       |
          +-----------------+
                   |
                   v
          +-----------------+
-         | Print result    |
+         | b = a - b       |
+         +-----------------+
+                  |
+                  v
+         +-----------------+
+         | a = a - b       |
+         +-----------------+
+                  |
+                  v
+         +-----------------+
+         | Print a, b      |
          +-----------------+
                   |
                   v
@@ -187,15 +201,10 @@ public class FactorialRecursion {
          +-----------------+
 ```
 
-### **Logic Explanation**
-- We use recursion where `factorial(n) = n * factorial(n-1)`, with the base case `factorial(0) = 1`.
-- Recursion continues until it reaches the base case.
-
 ### **Time and Space Complexity**
-- **Time Complexity:** `O(n)` (Recursively calls `n` times)
-- **Space Complexity:** `O(n)` (Stack memory used for recursive calls)
+- **Time Complexity:** \( O(1) \) – Constant operations.
+- **Space Complexity:** \( O(1) \) – No extra space used.
 
 ---
-
 
 
